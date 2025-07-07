@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bhumika Kumari Singh</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d0c1d;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #1e1e3f;
+      padding: 20px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    nav h1 {
+      font-size: 2rem;
+      color: white;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #bb86fc;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    section {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section h2 {
+      color: #bb86fc;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #555;
+      padding-bottom: 5px;
+    }
+
+    section h3 {
+      color: #4fd1c5;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-item {
+      display: inline-block;
+      background: #064e3b;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 1.2rem;
+    }
+
+    .profile-pic {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-top: 20px;
+    }
+
+    footer {
+      background-color: #1e1e3f;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .link {
+      color: #4fd1c5;
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      margin: 20px auto;
+    }
+
+    .tool-buttons {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .tool-buttons button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #4fd1c5;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #000;
+    }
+
+    .tool-buttons button:hover {
+      background: #38b2ac;
+    }
+
+    #achievements .achievement-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .achievement-card {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .achievement-card h3 {
+      font-family: monospace;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .achievement-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .card-Skill\ Corner,
+    .card-ESRI,
+    .card-Remote\ sensing\ Training {
+      background-color: #832a4c;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <h1>Bhumika Singh</h1>
+      <ul>
+        <li><a href="#About">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Hi, I’m Bhumika Kumari Singh</h1>
+    <p>Geomatics Engineering undergrad at Kathmandu University, passionate about mapping, exploring, and tech-driven solutions.</p>
+    <img src="bhumika.png.jpg" alt="Bhumika's Profile Photo" class="profile-pic">
+  </section>
+
+  <section id="About">
+    <h2>About Me</h2>
+    <p>
+      I’m an undergraduate student of Geomatics Engineering at Kathmandu University with a strong curiosity for learning new and emerging technologies.
+      I am an organized, efficient, and hardworking individual who believes in continuous growth through practical learning.
+      I’m always open to discovering and applying new ideas that can make an impact.
+    </p>
+    <p>
+      I’m a good listener, a dedicated learner, and someone who enjoys turning challenges into opportunities.
+      Outside of academics, I love <strong>traveling</strong>, <strong>reading</strong>, <strong>exploring</strong>, and <strong>mapping</strong> the world around me.
+    </p>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <ul>
+      <li><strong>Kathmandu University, Dhulikhel</strong> – Bachelor in Geomatics Engineering (2021 – Ongoing)</li>
+      <li><strong>Nepal Police School, Sanga</strong> – +2 Science (2019–2021) – GPA: 3.56</li>
+      <li><strong>Shree Janata Secondary School, Bardibas</strong> – SLC (2018) – GPA: 3.5</li>
+    </ul>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <ul>
+      <li>Cadastral Surveying and Mapping</li>
+      <li>Remote Sensing & GIS</li>
+      <li>Total Station Operation</li>
+      <li>Topographical Mapping</li>
+      <li>GIS Mapping Trainings</li>
+      <li>ESRI Mock Tests (GIS for Climate Action, GeoApps)</li>
+      <li>Web Development (HTML, CSS, JavaScript – Codecademy)</li>
+    </ul>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project">
+      <h3>3D Modeling of Panauti Hydropower</h3>
+      <p>Developed a 3D model of the Panauti Hydropower project to assist in visualizing infrastructure, aiding in the planning and management of the hydropower station.</p>
+    </div>
+
+    <div class="project">
+      <h3>GIS-Based Routing of Transmission Line</h3>
+      <p>Implemented the Least Cost Path Method (LCP) for routing a transmission line between Dhalkebar Power Station and Bardibas, optimizing the path for minimal environmental impact and cost.</p>
+    </div>
+
+    <div class="project">
+      <h3>Groundwater Potential Analysis</h3>
+      <p>Conducted an analysis of groundwater potential in a selected region, using GIS tools to map and evaluate the viability of groundwater extraction for agricultural and domestic use.</p>
+    </div>
+
+    <div class="project">
+      <h3>Direction Angle Transformer & Angle Visualization Panel</h3>
+      <p>Created a Direction Angle Transformer tool and an Angle Visualization Panel using Java, designed to provide users with an intuitive interface for analyzing directional data and angles in geographical contexts.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+
+    <h3>GIS & Mapping</h3>
+    <div class="skills-container">
+      <div class="skill-item">ArcGIS</div>
+      <div class="skill-item">QGIS</div>
+      <div class="skill-item">OpenStreetMap</div>
+      <div class="skill-item">Spatial Analysis</div>
+      <div class="skill-item">Geoprocessing</div>
+      <div class="skill-item">Cartographic Design</div>
+      <div class="skill-item">Web Mapping</div>
+      <div class="skill-item">Geocoding</div>
+      <div class="skill-item">GIS Database Management</div>
+    </div>
+
+    <h3>Remote Sensing & Data Collection</h3>
+    <div class="skills-container">
+      <div class="skill-item">Satellite Imagery Analysis</div>
+      <div class="skill-item">Drone Mapping</div>
+      <div class="skill-item">Field Data Collection</div>
+      <div class="skill-item">GPS/GNSS Systems</div>
+      <div class="skill-item">Photogrammetry</div>
+      <div class="skill-item">Image Classification</div>
+    </div>
+
+    <h3>Programming & Development</h3>
+    <div class="skills-container">
+      <div class="skill-item">Python</div>
+      <div class="skill-item">Java</div>
+      <div class="skill-item">SQL</div>
+      <div class="skill-item">HTML/CSS</div>
+      <div class="skill-item">JavaScript</div>
+      <div class="skill-item">GeoJSON</div>
+      <div class="skill-item">Leaflet.js</div>
+    </div>
+
+    <h3>Soft Skills</h3>
+    <div class="skills-container">
+      <div class="skill-item">Technical Training</div>
+      <div class="skill-item">Project Management</div>
+      <div class="skill-item">Community Building</div>
+      <div class="skill-item">Research</div>
+      <div class="skill-item">Public Speaking</div>
+      <div class="skill-item">Team Leadership</div>
+    </div>
+
+    <h3>Software & Tools</h3>
+    <div class="skills-container">
+      <div class="skill-item">ArcGIS</div>
+      <div class="skill-item">QGIS</div>
+      <div class="skill-item">ArcGIS Online</div>
+      <div class="skill-item">Google Earth Engine</div>
+      <div class="skill-item">ENVI</div>
+      <div class="skill-item">AutoCAD</div>
+      <div class="skill-item">PostGIS</div>
+      <div class="skill-item">Pix4D</div>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <h2>My Achievements</h2>
+    <div class="achievement-grid">
+      <div class="achievement-card card-Skill Corner">
+        <h3>Skill Corner Training</h3>
+        <img src="Skill Corner Training.jpeg" alt="GIS Certificate">
+      </div>
+      <div class="achievement-card card-ESRI">
+        <h3>Mock Test</h3>
+        <img src="Esri Mock.jpg" alt="ESRI Certificate">
+      </div>
+      <div class="achievement-card card-Remote sensing Training">
+        <h3>Remote Sensing Training</h3>
+        <img src="Remote sensing Training.jpeg" alt="Remote Sensing Certificate">
+      </div>
+    </div>
+
+    <div id="map"></div>
+    <div class="tool-buttons">
+      <button onclick="runBufferAnalysis()">Buffer Analysis</button>
+      <button onclick="calculatePolygonArea()">Area Calculator</button>
+      <button onclick="checkPointInPolygon()">Point-in-Polygon Checker</button>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a class="link" href="mailto:imbhumeekak@gmail.com">imbhumeekak@gmail.com</a></p>
+    <p>KU Email: <a class="link" href="mailto:bs50071321@student.ku.edu.np">bs50071321@student.ku.edu.np</a></p>
+    <p>LinkedIn: <a class="link" href="https://www.linkedin.com/in/bhumika-kumari-singh-969376311" target="_blank">Bhumika Kumari Singh</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Bhumika Kumari Singh. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const map = L.map('map').setView([27.7, 85.3], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+
+    const point = turf.point([85.3, 27.7]);
+    const polygon = turf.polygon([[ [85.0, 27.6], [85.4, 27.6], [85.4, 27.9], [85.0, 27.9], [85.0, 27.6] ]]);
+
+    const drawnLayer = L.geoJSON().addTo(map);
+
+    function runBufferAnalysis() {
+      drawnLayer.clearLayers();
+      const buffered = turf.buffer(point, 10, { units: 'kilometers' });
+      drawnLayer.addData(buffered);
+      alert('10 km buffer created around the point.');
+    }
+
+    function calculatePolygonArea() {
+      const area = turf.area(polygon);
+      drawnLayer.clearLayers();
+      drawnLayer.addData(polygon);
+      alert(`Polygon Area: ${area.toFixed(2)} sq. meters`);
+    }
+
+    function checkPointInPolygon() {
+      const isInside = turf.booleanPointInPolygon(point, polygon);
+      drawnLayer.clearLayers();
+      drawnLayer.addData(polygon);
+      drawnLayer.addData(point);
+      alert(`Point is ${isInside ? 'inside' : 'outside'} the polygon.`);
+    }
+  </script>
+
+</body>
+</html>
